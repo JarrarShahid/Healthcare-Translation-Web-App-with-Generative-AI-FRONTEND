@@ -30,7 +30,7 @@ export const translateText = async (request: TranslationRequest): Promise<Transl
   }
 };
 
-export const speakText = (text: string, language: string = 'en-US'): void => {
+export const speakText = (text: string, language: string = 'en-US'): SpeechSynthesisUtterance | null => {
   if ('speechSynthesis' in window) {
     // Cancel any ongoing speech
     window.speechSynthesis.cancel();
@@ -41,7 +41,9 @@ export const speakText = (text: string, language: string = 'en-US'): void => {
     utterance.volume = 0.8;
     
     window.speechSynthesis.speak(utterance);
+    return utterance;
   } else {
     console.warn('Speech synthesis not supported in this browser');
+    return null;
   }
 };

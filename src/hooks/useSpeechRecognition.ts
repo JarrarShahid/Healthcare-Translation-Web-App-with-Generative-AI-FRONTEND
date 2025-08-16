@@ -1,4 +1,4 @@
-import { useState, useRef, useCallback } from 'react';
+import { useState, useRef, useCallback, useEffect } from 'react';
 
 // Define the SpeechRecognition interface for TypeScript
 interface SpeechRecognitionEvent extends Event {
@@ -113,9 +113,9 @@ export const useSpeechRecognition = () => {
   }, []);
 
   // Initialize on first render
-  useState(() => {
+  useEffect(() => {
     initRecognition();
-  });
+  }, [initRecognition]);
 
   return {
     isListening,

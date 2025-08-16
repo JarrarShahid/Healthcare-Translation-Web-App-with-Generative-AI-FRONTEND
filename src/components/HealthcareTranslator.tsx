@@ -86,12 +86,36 @@ export const HealthcareTranslator = () => {
     const outputLang = getLanguageByCode(outputLanguage);
     
     try {
-      speakText(translatedText, outputLang.speechCode);
+      // Get the utterance from speakText and add event handlers
+      const utterance = speakText(translatedText, outputLang.speechCode);
       
-      // Listen for speech end to reset button state
-      const utterance = new SpeechSynthesisUtterance(translatedText);
-      utterance.onend = () => setIsSpeaking(false);
-      utterance.onerror = () => setIsSpeaking(false);
+      if (utterance) {
+        // Safety timeout to reset button state if events don't fire
+        const safetyTimeout = setTimeout(() => {
+          setIsSpeaking(false);
+        }, 10000); // 10 seconds timeout
+        
+        // Listen for speech end to reset button state
+        utterance.onend = () => {
+          clearTimeout(safetyTimeout);
+          setIsSpeaking(false);
+        };
+        utterance.onerror = (event) => {
+          clearTimeout(safetyTimeout);
+          setIsSpeaking(false);
+        };
+        utterance.onpause = () => {
+          clearTimeout(safetyTimeout);
+          setIsSpeaking(false);
+        };
+        utterance.oncancel = () => {
+          clearTimeout(safetyTimeout);
+          setIsSpeaking(false);
+        };
+      } else {
+        // If speech synthesis is not supported, reset immediately
+        setIsSpeaking(false);
+      }
       
       toast({
         title: "Speaking translation",
@@ -183,12 +207,31 @@ export const HealthcareTranslator = () => {
               onClick={handleSpeakTranslation}
               variant="secondary"
               size="xl"
-              disabled={!translatedText || isSpeaking || isTranslating}
+              disabled={!translatedText || isTranslating}
               className="flex-1 sm:flex-none sm:min-w-48"
             >
               <Volume2 className="w-5 h-5" />
               {isSpeaking ? "Speaking..." : "Speak Translation"}
             </Button>
+            
+            {/* Manual reset button for stuck speaking state */}
+            {isSpeaking && (
+              <Button
+                onClick={() => {
+                  setIsSpeaking(false);
+                  window.speechSynthesis.cancel();
+                  toast({
+                    title: "Speech stopped",
+                    description: "Speech synthesis has been stopped.",
+                  });
+                }}
+                variant="outline"
+                size="sm"
+                className="mt-2"
+              >
+                Stop Speaking
+              </Button>
+            )}
           </div>
           
           {isTranslating && (

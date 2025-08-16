@@ -1,73 +1,56 @@
-# Welcome to your Lovable project
+# Healthcare Translation Web App
 
-## Project info
+A real-time, multilingual healthcare translation web application that enables seamless communication between patients and healthcare providers.
 
-**URL**: https://lovable.dev/projects/3525183a-c81b-42a4-a4cb-59a3a21c5415
+## Features
 
-## How can I edit this code?
+- Real-time speech recognition and transcription
+- AI-powered medical translation using Groq LLaMA3-8B
+- Multi-language support (12 languages)
+- Text-to-speech synthesis
+- Mobile-first responsive design
+- Medical terminology preservation
 
-There are several ways of editing your application.
+## Technology Stack
 
-**Use Lovable**
+- **Frontend**: React 18 + TypeScript + Vite
+- **Backend**: FastAPI + Python
+- **AI**: Groq API + LangChain
+- **Styling**: Tailwind CSS + Shadcn/ui
+- **Speech**: Web Speech API
 
-Simply visit the [Lovable Project](https://lovable.dev/projects/3525183a-c81b-42a4-a4cb-59a3a21c5415) and start prompting.
+## Getting Started
 
-Changes made via Lovable will be committed automatically to this repo.
+### Prerequisites
+- Node.js 18+
+- Python 3.8+
+- Groq API key
 
-**Use your preferred IDE**
-
-If you want to work locally using your own IDE, you can clone this repo and push changes. Pushed changes will also be reflected in Lovable.
-
-The only requirement is having Node.js & npm installed - [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating)
-
-Follow these steps:
-
-```sh
-# Step 1: Clone the repository using the project's Git URL.
-git clone <YOUR_GIT_URL>
-
-# Step 2: Navigate to the project directory.
-cd <YOUR_PROJECT_NAME>
-
-# Step 3: Install the necessary dependencies.
-npm i
-
-# Step 4: Start the development server with auto-reloading and an instant preview.
+### Frontend Setup
+```bash
+cd voice-med-speak-frontend
+npm install
 npm run dev
 ```
 
-**Edit a file directly in GitHub**
+### Backend Setup
+```bash
+cd voice-med-speak-backend
+python -m venv venv
+source venv/bin/activate  # On Windows: venv\Scripts\activate
+pip install -r requirements.txt
+python main.py
+```
 
-- Navigate to the desired file(s).
-- Click the "Edit" button (pencil icon) at the top right of the file view.
-- Make your changes and commit the changes.
+## Building
 
-**Use GitHub Codespaces**
+To build the project:
 
-- Navigate to the main page of your repository.
-- Click on the "Code" button (green button) near the top right.
-- Select the "Codespaces" tab.
-- Click on "New codespace" to launch a new Codespace environment.
-- Edit files directly within the Codespace and commit and push your changes once you're done.
+```bash
+npm run build
+```
 
-## What technologies are used for this project?
+## Deployment
 
-This project is built with:
-
-- Vite
-- TypeScript
-- React
-- shadcn-ui
-- Tailwind CSS
-
-## How can I deploy this project?
-
-Simply open [Lovable](https://lovable.dev/projects/3525183a-c81b-42a4-a4cb-59a3a21c5415) and click on Share -> Publish.
-
-## Can I connect a custom domain to my Lovable project?
-
-Yes, you can!
-
-To connect a domain, navigate to Project > Settings > Domains and click Connect Domain.
-
-Read more here: [Setting up a custom domain](https://docs.lovable.dev/tips-tricks/custom-domain#step-by-step-guide)
+The frontend is ready for deployment on Vercel, Netlify, or similar platforms.
+The backend is ready for deployment on Railway, Render, or similar platforms.
