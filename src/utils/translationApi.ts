@@ -10,7 +10,7 @@ export interface TranslationResponse {
 
 export const translateText = async (request: TranslationRequest): Promise<TranslationResponse> => {
   try {
-    const response = await fetch('http://localhost:8000/translate', {
+    const response = await fetch('https://web-production-707fbe.up.railway.app/translate', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
