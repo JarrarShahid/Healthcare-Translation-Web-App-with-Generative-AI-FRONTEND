@@ -10,6 +10,10 @@ export interface TranslationResponse {
 
 export const translateText = async (request: TranslationRequest): Promise<TranslationResponse> => {
   try {
+    console.log('🚀 Starting translation request...');
+    console.log('📤 Request data:', request);
+    console.log('🌐 Target URL:', 'https://web-production-707fbe.up.railway.app/translate');
+    
     const response = await fetch('https://web-production-707fbe.up.railway.app/translate', {
       method: 'POST',
       headers: {
@@ -18,14 +22,27 @@ export const translateText = async (request: TranslationRequest): Promise<Transl
       body: JSON.stringify(request),
     });
 
+    console.log('📥 Response received:', {
+      status: response.status,
+      statusText: response.statusText,
+      ok: response.ok,
+      headers: Object.fromEntries(response.headers.entries())
+    });
+
     if (!response.ok) {
       throw new Error(`Translation failed: ${response.status} ${response.statusText}`);
     }
 
     const data = await response.json();
+    console.log('✅ Translation successful:', data);
     return data;
   } catch (error) {
-    console.error('Translation API error:', error);
+    console.error('❌ Translation API error:', error);
+    console.error('🔍 Error details:', {
+      name: error.name,
+      message: error.message,
+      type: error.constructor.name
+    });
     throw error;
   }
 };
